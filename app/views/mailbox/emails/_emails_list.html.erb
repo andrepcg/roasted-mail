@@ -1,0 +1,38 @@
+<div id="emails_list">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-content">
+          <div class="table-responsive">
+            <table class="table table-striped mb-0">
+              <thead>
+                <tr>
+                  <th>FROM</th>
+                  <th>SUBJECT</th>
+                  <th>DATE</th>
+                  <th>ACTIONS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <%= render partial: 'email_entry', collection: emails, cached: true %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <%== pagy_bootstrap_nav(@pagy) %>
+    </div>
+  </div>
+
+  <script>
+    function removeEmail(event) {
+      const emailId = event.currentTarget.parentElement.parentElement.dataset.emailId;
+      $(`[data-email-id=${emailId}]`).fadeTo(600, 0.01, function(){
+        $(this).slideUp(150, function() {
+          $(this).remove();
+        });
+      });
+    }
+    $('.delete').on('ajax:success', removeEmail);
+  </script>
+</div>

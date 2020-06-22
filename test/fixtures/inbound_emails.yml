@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  account: one
+  text: MyText
+  html: MyText
+  from: MyString
+  sender_ip: MyString
+  subject: MyString
+  headers: MyText
+
+two:
+  account: two
+  text: MyText
+  html: MyText
+  from: MyString
+  sender_ip: MyString
+  subject: MyString
+  headers: MyText

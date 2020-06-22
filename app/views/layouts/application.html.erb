@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RoastedMail</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'mailbox', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="dark-layout">
+    <main id="content" role="main">
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <h1 class="display-1 text-center"><%= t('app_name') %></h1>
+          </div>
+        </div>
+        <%= yield %>
+      </div>
+    </main>
+  </body>
+</html>

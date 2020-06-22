@@ -1,0 +1,17 @@
+require:
+  - rubocop-rails
+
+AllCops:
+  Exclude:
+    - 'config/initializers/**/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - 'bin/**/*'
+    - 'db/**/*'
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'config/environments/*'
