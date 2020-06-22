@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class MailboxController < ApplicationController
-  before_action :validate_mailbox, only: %i[index]
+  before_action :validate_mailbox, only: %i[inbox]
+  before_action :redirect_to_mailbox, only: %i[index]
 
   def index
-    return render :index unless current_mailbox
+  end
 
-    render :show
+  def inbox
   end
 
   def create
@@ -22,9 +23,20 @@ class MailboxController < ApplicationController
     redirect_to mailbox_path
   end
 
-  def destroy
-    @mailbox.destroy
+  def logout
     destroy_session
     redirect_to root_url
+  end
+
+  def destroy
+    current_mailbox.destroy
+    destroy_session
+    redirect_to root_url
+  end
+
+  private
+
+  def redirect_to_mailbox
+    return redirect_to mailbox_inbox_path if current_mailbox
   end
 end

@@ -1,0 +1,31 @@
+<div class="modal fade" id="email_modal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="text-primary">From: <%= email.name %></span>
+          <span class="d-sm-inline d-none"><%= email.from %></span>
+          <small class="text-muted d-block"><b>Subject:</b> <%= email.subject %></small>
+          <small class="text-muted d-block"><b>Received at:</b> <%= email.created_at.to_formatted_s(:long) %></small>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p><%= (email.html || format_linebreaks(email.text)).html_safe %></p>
+      </div>
+      <% if email.files.attached? %>
+        <div class="modal-body">
+          <label class="sidebar-label">Attached Files</label>
+          <ul>
+            <%= render partial: 'attachment', collection: email.files %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary ml-1" data-dismiss="modal">
+          <i class="bx bx-check d-block d-sm-none"></i>
+          <span class="d-none d-sm-block">Close</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

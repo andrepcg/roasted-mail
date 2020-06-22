@@ -1,4 +1,20 @@
 <div class="row mb-1">
+  <div class="col-12 d-flex justify-content-end">
+    <span class="align-middle">
+    <%= link_to '#', data: { toggle: 'modal', target: '#generateModal' } do %>
+      <%= icon('fas', 'info-circle', class: 'fa-2x mr-1') %>
+    <% end %>
+    </span>
+    <%= link_to t('.generate'), mailbox_create_path, method: :post, class: 'btn btn-success btn-sm mr-1' %>
+    <%= link_to t('.logout'), mailbox_logout_path, method: :post, class: 'btn btn-primary btn-sm mr-1' %>
+    <%= link_to mailbox_destroy_path, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: t('.destroy_confirmation') } do %>
+      <%= icon('fas', 'trash') %>
+      <%= t('.delete') %>
+    <% end %>
+  </div>
+</div>
+
+<div class="row mb-1">
   <div class="col-6">
     <div class="card">
       <div class="card-header d-flex justify-content-between align-items-center">
@@ -6,6 +22,7 @@
       </div>
       <div class="card-content">
         <div class="card-body">
+          <p>Save these details so you don't lose any data</p>
           <fieldset class="form-group">
             <label for="email">Email</label>
             <div class="input-group">
@@ -27,9 +44,6 @@
               </div>
             </div>
           </fieldset>
-
-          <%= link_to 'Roast mailbox', mailbox_destroy_path, method: :delete, class: 'btn btn-danger btn-sm', data: { confirm: t('mailbox_destroy_confirmation') } %>
-
         </div>
       </div>
     </div>
@@ -42,19 +56,19 @@
               <div class="form-body">
                 <div class="row">
                   <div class="col-md-5">
-                    <label>Mailbox generated at</label>
+                    <label><%= t('.generated_at') %></label>
                   </div>
                   <div class="col-md-7 form-group">
                     <%= current_mailbox.created_at %>
                   </div>
                   <div class="col-md-5">
-                    <label>Emails received</label>
+                    <label><%= t('.emails_received') %></label>
                   </div>
                   <div class="col-md-7 form-group">
                     <%= current_mailbox.inbound_emails.size %>
                   </div>
                   <div class="col-md-5">
-                    <label>Erases itself in</label>
+                    <label><%= t('.erases_in') %></label>
                   </div>
                   <div class="col-md-7 form-group">
                     <span title="<%= current_mailbox.expires_at %>"><%= distance_of_time_in_words_to_now current_mailbox.expires_at %></span>
@@ -71,37 +85,17 @@
 
 
 <div class="row mb-1">
-  <div class="col-12">
-    <button id="refresh" class="btn btn-primary glow">Refresh</button>
-    <small class="text-muted float-right">Last refresh: <span id="last_refresh"></span></small>
+  <div class="col-12 d-flex align-items-center justify-content-between">
+    <button id="refresh" class="btn btn-primary glow"><%= t('.refresh') %></button>
+    <small class="text-muted"><%= t('.last_refresh') %>: <span id="last_refresh"></span></small>
 
   </div>
 </div>
 
 <div id="emails_list"></div>
+<div id="email-container"></div>
 
-<%= render partial: 'session_modal' %>
-
-
-<script>
-  const refreshButton = $('#refresh');
-  const lastRefresh = $('#last_refresh');
-
-  function loadEmails() {
-    refreshButton.prop('disabled', true).text('Refreshing...');
-    $.ajax({
-      "type": "GET",
-      "url": "/mailbox/emails",
-      "dataType": "script",
-    }).done(() => {
-      refreshButton.prop('disabled', false).text('Refresh');
-      lastRefresh.text(new Date().toLocaleString())
-    });
-  }
-
-  window.addEventListener("turbolinks:load", loadEmails);
-
-  refreshButton.click(loadEmails);
+<%= render partial: 'modals' %>
 
 
-</script>
+<%= javascript_pack_tag 'inbox', 'data-turbolinks-track': 'reload' %>

@@ -1,11 +1,19 @@
 <tr class="email_entry" data-email-id="<%= email_entry.id %>">
   <td>
-    <h6 class="text-bold-500 mb-0"><%= email_entry.name %></h6>
-    <small class="text-muted"><%= email_entry.from %></small>
+    <div class="d-flex align-items-center">
+      <span class="read-circle"><%= icon('fas', 'circle', class: !email_entry.read_at && "success") %></span>
+    <div class="ml-1">
+      <h6 class="text-bold-500 mb-0"><%= email_entry.name %></h6>
+      <small class="text-muted"><%= email_entry.from %></small>
+    </div>
+    </div>
   </td>
-  <td><%= email_entry.subject %></td>
+  <td><%= email_entry.subject.truncate(25) %></td>
   <td><%= email_entry.created_at %></td>
   <td>
+    <%= link_to mailbox_email_path(email_entry), class: 'open btn btn-primary btn-sm shadow', data: { toggle: 'tooltip', placement: 'top', original_title: 'Open' } , remote: true do %>
+      <%= icon('fas', 'envelope-open') %>
+    <% end %>
     <%= link_to mailbox_email_path(email_entry), method: :delete, class: 'delete btn btn-danger btn-sm shadow', data: { toggle: 'tooltip', placement: 'top', original_title: 'Delete email' } , remote: true do %>
       <%= icon('fas', 'trash') %>
     <% end %>

@@ -14,8 +14,8 @@
 #   rake "some:great:rake:task"
 # end
 #
-# every 4.days do
-#   runner "AnotherModel.prune_old_records"
-# end
+every 3.hours do
+  rake 'mailbox:remove_expired'
+end
 
 # Learn more: http://github.com/javan/whenever

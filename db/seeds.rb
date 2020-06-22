@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-domains = %w[ihave.buzz needemail.top iamno.monster].map do |n|
+domains = %w[roasted.email ihave.buzz needemail.top iamno.monster].map do |n|
   { domain: n }
 end
 
@@ -17,3 +17,5 @@ Domain.create(domains)
                         sender_ip: Faker::Internet.ip_v4_address
   end
 end
+
+AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?

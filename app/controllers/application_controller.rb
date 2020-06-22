@@ -2,9 +2,13 @@
 
 class ApplicationController < ActionController::Base
   include Pagy::Backend
+  before_action :make_action_controller_use_request_host_and_protocol
 
   def validate_mailbox
-    redirect_to root_path unless current_mailbox
+    return true if current_mailbox
+
+    destroy_session
+    redirect_to root_path
   end
 
   def create_session(mailbox)
@@ -13,8 +17,9 @@ class ApplicationController < ActionController::Base
   end
 
   def destroy_session
-    session.delete(:mailbox_id)
-    session.delete(:mailbox_token)
+    # session.delete(:mailbox_id)
+    # session.delete(:mailbox_token)
+    reset_session
     @current_mailbox = nil
   end
 
@@ -25,4 +30,11 @@ class ApplicationController < ActionController::Base
       Mailbox.find_by(id: session[:mailbox_id], token: session[:mailbox_token])
   end
   helper_method :current_mailbox
+
+  private
+
+  def make_action_controller_use_request_host_and_protocol
+    ActionController::Base.default_url_options[:protocol] = request.protocol
+    ActionController::Base.default_url_options[:host] = request.host_with_port
+  end
 end

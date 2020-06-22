@@ -31,10 +31,28 @@
 
 en:
   app_name: "Roasted.email"
-  mailbox_destroy_confirmation: Are you sure you want to destroy this mailbox? All emails will also be destroyed.
   mailbox:
-    session_modal:
-      help: We use cookies and sessions to keep the mailbox persisted on your browser. However, if you don't want to lose access or want to open it elsewhere, copy and save the session url.
+    index:
+      generate: Generate Mailbox
+    inbox:
+      generated_at: Mailbox generated at
+      emails_received: Emails received
+      erases_in: Erases itself in
+      generate: Generate another mailbox
+      logout: Logout
+      delete: Roast mailbox
+      last_refresh: Last refresh
+      refresh: Refresh
+      destroy_confirmation: Are you sure you want to destroy this mailbox? All emails will also be destroyed.
+    modals:
+      generate_mailbox_help: You can generate as many mailboxes you want. After generating a new one the old one can still be access by using the corresponding URL. Don't forget mailboxes expire and all data is lost.
+      session_help: We use cookies and sessions to keep the mailbox persisted on your browser. However, if you don't want to lose access or want to open it elsewhere, copy and save the session url.
+    emails:
+      emails_list:
+        from: FROM
+        subject: SUBJECT
+        date: DATE
+        actions: ACTIONS
   pagy:
     nav:
       next: '>'

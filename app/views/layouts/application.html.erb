@@ -13,13 +13,21 @@
   <body class="dark-layout">
     <main id="content" role="main">
       <div class="container">
-        <div class="row">
-          <div class="col">
-            <h1 class="display-1 text-center"><%= t('app_name') %></h1>
+        <div class="row mb-2">
+          <div class="col text-center mt-2">
+            <%= link_to mailbox_path do %>
+              <%= image_tag("roasted.svg", alt: t('app_name'), title: t('app_name'))%>
+            <% end %>
           </div>
         </div>
         <%= yield %>
       </div>
     </main>
+    <footer class="footer footer-static footer-dark">
+      <p class="clearfix mb-0">
+        <span class="float-left d-inline-block"><%= t('app_name') %></span>
+        <span class="float-right d-sm-inline-block d-none">Developed by<a class="text-uppercase" href="https://github.com/andrepcg" target="_blank">andré perdigão</a></span>
+      </p>
+    </footer>
   </body>
 </html>

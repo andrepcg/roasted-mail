@@ -1,0 +1,4 @@
+$("#email-container").html("<%= escape_javascript(render partial: 'email', locals: { email: @email } ) %>")
+$('#email_modal').modal('show');
+
+$("[data-email-id=<%= @email.id %>] .read-circle i").removeClass('success');

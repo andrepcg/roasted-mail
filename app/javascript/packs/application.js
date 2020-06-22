@@ -24,5 +24,6 @@ $(document).on('turbolinks:load', function() {
     container: 'body',
     trigger: 'hover'
   });
+  window.$ = $;
 });
 

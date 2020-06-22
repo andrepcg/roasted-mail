@@ -7,19 +7,25 @@
             NeedEmail.top is a service for disposable temporary emails. Just click generate and a random email will be given to you.
           </p>
           <p class="card-text">
-            All mailboxes expire automatically after 7 days and all the stored emails are deleted.
+            <b>All mailboxes expire automatically after <%= distance_of_time_in_words(Mailbox::DEFAULT_VALID_FOR) %> and all the stored emails are deleted.</b> Use this service for temporary email only, otherwise you might lose your data.
+          </p>
+          <p class="card-text">
+            If you want to access a previously used mailbox you must use the session url that was provided.
           </p>
         </div>
       </div>
     </div>
-    <%= link_to 'Generate Mailbox', mailbox_create_path, method: :post, class: 'btn mb-1 btn-danger glow btn-lg btn-block' %>
+    <%= link_to t('.generate'), mailbox_create_path, method: :post, class: 'btn mb-1 btn-danger glow btn-lg btn-block' %>
   </div>
 </div>
 
 
 <div class="row">
-  <div class="offset-md-3 col-md-6">
-
+  <div class="offset-md-3 col-md-6 mt-4">
+    <h4 class="card-title">Domains in use</h4>
+    <% Domain.all.order('RANDOM()').each do |domain| %>
+      <a href="<%= domain.url %>" class="badge badge-<%= random_color %> mr-1 mb-1">@<%= domain.domain %></a>
+    <% end %>
   </div>
 </div>
 

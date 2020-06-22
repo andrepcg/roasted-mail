@@ -9,6 +9,8 @@ class Mailbox < ApplicationRecord
 
   attribute :expires_at, :datetime, default: -> { Time.zone.now + DEFAULT_VALID_FOR }
 
+  scope :expired, -> { where('expires_at <= ?', Time.zone.now) }
+
   def self.create_custom(username, domain_id)
     domain = Domain.find domain_id
     email = "#{username}@#{domain.domain}"
