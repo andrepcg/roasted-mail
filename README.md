@@ -1,27 +1,17 @@
-https://thedevpost.com/blog/setup-action-mailbox-with-postfix-part-1/
-https://github.com/Loumaris/action-mailbox-docker-postfix-relay
+![Roasted.email](roasted.png?raw=true "Roasted.email")
 
-# README
+# Roasted.email
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Open-source Ruby on Rails app for disposable temporary emails.
 
-Things you may want to cover:
+Try it now in:
 
-* Ruby version
+- https://roasted.email
+- https://ihave.buzz/
+- https://needemail.top/
+- https://iamno.monster/
 
-* System dependencies
 
-* Configuration
+## TODO
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- [ ] Write better readme

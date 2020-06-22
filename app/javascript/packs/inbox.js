@@ -6,6 +6,7 @@ $(document).on('turbolinks:load', function() {
   const lastRefresh = $('#last_refresh');
 
   function loadEmails() {
+    $('.tooltip').tooltip('dispose');
     refreshButton.prop('disabled', true).text('Refreshing...');
     $.ajax({
       "type": "GET",
