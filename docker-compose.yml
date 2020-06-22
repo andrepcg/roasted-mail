@@ -3,7 +3,7 @@ services:
   db:
     image: postgres:11.8-alpine
     ports:
-      - "5432:5432"
+      - "5430:5432"
 
   web:
     build: .
@@ -13,4 +13,11 @@ services:
     links:
       - db
     volumes:
-      - .:/myapp
+      - .:/app
+    environment:
+      RAILS_ENV: production
+      DB_USERNAME: postgres
+      DB_HOST: db
+      DB_PORT: 5430
+    depends_on:
+      - db

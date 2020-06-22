@@ -2,6 +2,8 @@
 
 class ApplicationController < ActionController::Base
   include Pagy::Backend
+
+  protect_from_forgery with: :exception
   before_action :make_action_controller_use_request_host_and_protocol
 
   def validate_mailbox

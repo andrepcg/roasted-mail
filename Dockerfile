@@ -8,17 +8,19 @@ RUN apt-get install -y libpq-dev
 # for nokogiri
 RUN apt-get install -y libxml2-dev libxslt1-dev
 
-# for capybara-webkit
-RUN apt-get install -y libqt4-webkit libqt4-dev xvfb
 
-# for a JS runtime
-RUN apt-get install -y nodejs
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update -qq && apt-get install -y build-essential nodejs yarn
 
-ENV APP_HOME /myapp
+ENV APP_HOME /app
 RUN mkdir $APP_HOME
 WORKDIR $APP_HOME
 
+RUN gem install bundler:2.1.4
 ADD Gemfile* $APP_HOME/
 RUN bundle install
 
 ADD . $APP_HOME
+RUN yarn install --check-files
+RUN RAILS_ENV=production bundle exec rake assets:precompile

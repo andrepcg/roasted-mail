@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
   namespace :webhooks do
     post '/email_inbound', to: 'sendgrid#inbound'
   end
