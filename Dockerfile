@@ -3,7 +3,7 @@ FROM ruby:2.6.5
 RUN apt-get update -qq && apt-get install -y build-essential
 
 # for postgres
-RUN apt-get install -y libpq-dev
+RUN apt-get install -y libpq-dev cron
 
 # for nokogiri
 RUN apt-get install -y libxml2-dev libxslt1-dev
@@ -23,4 +23,5 @@ RUN bundle install
 
 ADD . $APP_HOME
 RUN yarn install --check-files
-RUN RAILS_ENV=production bundle exec rake assets:precompile
+RUN bundle exec whenever --update-crontab
+CMD service cron start

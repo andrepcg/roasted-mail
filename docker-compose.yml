@@ -6,6 +6,8 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - roasted_data:/var/lib/postgresql/data
 
   web:
     build: .
@@ -22,5 +24,9 @@ services:
       DB_HOST: db
       DB_PORT: 5432
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      RAILS_SERVE_STATIC_FILES: ${RAILS_SERVE_STATIC_FILES}
     depends_on:
       - db
+
+volumes:
+  roasted_data:
