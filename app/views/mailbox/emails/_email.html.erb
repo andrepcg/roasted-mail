@@ -10,7 +10,6 @@
         </div>
       </div>
       <div class="modal-body">
-        <iframe id="email-iframe"></iframe>
         <p><%= format_linebreaks(email.text).html_safe %></p>
       </div>
       <% if email.files.attached? %>
