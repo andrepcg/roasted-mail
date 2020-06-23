@@ -30,11 +30,11 @@ module RoastedMail
     config.load_defaults 6.0
     config.eager_load_paths << Rails.root.join('lib')
 
-    if Rails.env.development? || Rails.env.test?
-      config.secret_key_base = '34uijfsd98hj4983498j2389jrgvfdza980ad'
-    else
-      config.secret_key_base = ENV['SECRET_KEY_BASE']
-    end
+    config.secret_key_base = if Rails.env.development? || Rails.env.test?
+                               '34uijfsd98hj4983498j2389jrgvfdza980ad'
+                             else
+                               ENV['SECRET_KEY_BASE']
+                             end
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

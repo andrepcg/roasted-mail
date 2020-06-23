@@ -30,16 +30,15 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+gem 'activeadmin'
+gem 'devise'
+gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 gem 'font-awesome-sass', '~> 5.13.0'
 gem 'json'
 gem 'mail'
 gem 'pagy', '~> 3.5'
-gem 'whenever', require: false
-gem 'activeadmin'
-gem 'devise'
-gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 gem 'sentry-raven'
-
+gem 'whenever', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -48,8 +47,8 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'rails_real_favicon'
   gem 'listen', '~> 3.2'
+  gem 'rails_real_favicon'
   gem 'rubocop', '~> 0.85.1', require: false
   gem 'rubocop-rails', require: false
   gem 'web-console', '>= 3.3.0'

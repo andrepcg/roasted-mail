@@ -3,7 +3,7 @@
 module ApplicationHelper
   include Pagy::Frontend
 
-  COLORS = %w[primary success danger warning secondary info]
+  COLORS = %w[primary success danger warning secondary info].freeze
 
   def random_color
     COLORS.sample
@@ -15,11 +15,11 @@ module ApplicationHelper
 
   def format_linebreaks(text)
     safe_text = h(text)
-    paragraphs = split_paragraphs(text).map(&:html_safe)
+    paragraphs = split_paragraphs(safe_text).map(&:html_safe)
 
     html = ''.html_safe
     paragraphs.each do |paragraph|
-      html << content_tag(:p, paragraph)
+      html << tag.p(paragraph)
     end
     html
   end
