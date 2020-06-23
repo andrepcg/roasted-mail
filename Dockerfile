@@ -25,4 +25,4 @@ ADD . $APP_HOME
 RUN yarn install --check-files
 RUN touch /var/log/cron.log
 RUN bundle exec whenever --update-crontab
-CMD service cron start
+RUN bundle exec rake assets:precompile
