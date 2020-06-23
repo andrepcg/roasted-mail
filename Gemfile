@@ -38,6 +38,7 @@ gem 'font-awesome-sass', '~> 5.13.0'
 gem 'google-cloud-storage', '~> 1.11', require: false
 gem 'json'
 gem 'mail'
+gem 'newrelic_rpm'
 gem 'pagy', '~> 3.5'
 gem 'rack-attack'
 gem 'sentry-raven'
