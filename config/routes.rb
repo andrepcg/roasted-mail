@@ -22,7 +22,11 @@ Rails.application.routes.draw do
   # end
 
   namespace :mailbox do
-    resources :emails, only: %i[index destroy show], param: :email_id
+    resources :emails, only: %i[index destroy show], param: :email_id do
+      member do
+        get 'render_email_html'
+      end
+    end
     get 'inbox', action: :inbox
     get '', action: :index
     post '', action: :create, as: :create

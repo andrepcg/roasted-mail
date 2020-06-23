@@ -1,5 +1,5 @@
 <div class="modal fade" id="email_modal" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable modal-xl" role="document">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <div class="modal-title">
@@ -10,7 +10,11 @@
         </div>
       </div>
       <div class="modal-body">
-        <p><%= format_linebreaks(email.text).html_safe %></p>
+        <% if email.html.present? %>
+          <iframe src="<%= render_email_html_mailbox_email_path(email) %>"></iframe>
+        <% else %>
+          <%= format_linebreaks(@email.text) %>
+        <% end %>
       </div>
       <% if email.files.attached? %>
         <div class="modal-body">

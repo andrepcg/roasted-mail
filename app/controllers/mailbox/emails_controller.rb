@@ -3,7 +3,7 @@
 # rubocop:disable Style/ClassAndModuleChildren
 class Mailbox::EmailsController < ApplicationController
   before_action :validate_mailbox
-  before_action :set_email, only: %i[show destroy]
+  before_action :set_email, only: %i[show destroy render_email_html]
 
   def index
     @pagy, @emails = pagy(current_mailbox.inbound_emails, link_extra: 'data-remote="true"')
@@ -17,6 +17,10 @@ class Mailbox::EmailsController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def render_email_html
+    render :email_html, layout: false
   end
 
   def destroy
