@@ -23,6 +23,7 @@ services:
       DB_USERNAME: postgres
       DB_HOST: db
       DB_PORT: 5432
+      SENTRY_DSN: ${SENTRY_DSN}
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
       RAILS_SERVE_STATIC_FILES: ${RAILS_SERVE_STATIC_FILES}
     depends_on:
