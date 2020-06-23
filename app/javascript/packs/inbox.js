@@ -7,11 +7,15 @@ $(document).on('turbolinks:load', function() {
 
   function loadEmails() {
     // $('.tooltip').tooltip('dispose');
+    const currentPage = $('#emails_list').data('page');
     refreshButton.prop('disabled', true).text('Refreshing...');
     $.ajax({
       "type": "GET",
       "url": "/mailbox/emails",
       "dataType": "script",
+      "data": {
+        "page": currentPage
+      }
     }).done(() => {
       refreshButton.prop('disabled', false).text('Refresh');
       lastRefresh.text(new Date().toLocaleString())

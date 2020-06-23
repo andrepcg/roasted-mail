@@ -18,17 +18,13 @@ services:
       - db
     volumes:
       - .:/app
+    env_file:
+      - .env
     environment:
       RAILS_ENV: production
       DB_USERNAME: postgres
       DB_HOST: db
       DB_PORT: 5432
-      SENTRY_DSN: ${SENTRY_DSN}
-      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
-      RAILS_SERVE_STATIC_FILES: ${RAILS_SERVE_STATIC_FILES}
-      GCS_BUCKET: ${GCS_BUCKET}
-      GCS_PROJECT: ${GCS_PROJECT}
-      GOOGLE_APPLICATION_CREDENTIALS: ${GOOGLE_APPLICATION_CREDENTIALS}
     depends_on:
       - db
 

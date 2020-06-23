@@ -25,5 +25,9 @@ $(document).on('turbolinks:load', function() {
     trigger: 'hover'
   });
   window.$ = $;
+
+  if (typeof window.fathom === 'function') {
+    window.fathom('trackPageview');
+  }
 });
 

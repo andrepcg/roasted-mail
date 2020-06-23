@@ -1,1 +1,1 @@
-$("#emails_list").html("<%= escape_javascript(render partial: 'emails_list', locals: { emails: @emails } ) %>");
+$("#emails_list").replaceWith("<%= escape_javascript(render partial: 'emails_list', locals: { emails: @emails } ) %>");

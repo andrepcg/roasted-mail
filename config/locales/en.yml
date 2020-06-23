@@ -31,7 +31,6 @@
 
 en:
   app_name: "Roasted.email"
-  app_description: Temporary and disposable emails
   mailbox:
     index:
       generate: Generate Mailbox
