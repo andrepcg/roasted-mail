@@ -216,6 +216,8 @@ GEM
     puma (4.3.5)
       nio4r (~> 2.0)
     rack (2.2.3)
+    rack-attack (6.3.1)
+      rack (>= 1.0, < 3)
     rack-proxy (0.6.5)
       rack
     rack-test (1.1.0)
@@ -368,6 +370,7 @@ DEPENDENCIES
   pagy (~> 3.5)
   pg (>= 0.18, < 2.0)
   puma (~> 4.1)
+  rack-attack
   rails (~> 6.0.3, >= 6.0.3.2)
   rails_real_favicon
   rubocop (~> 0.85.1)

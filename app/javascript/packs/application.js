@@ -11,6 +11,10 @@ require("channels")
 import $ from 'jquery';
 import 'bootstrap/js/dist/tooltip';
 import 'bootstrap/js/dist/modal';
+import toastr from 'toastr';
+// import 'toastr/build/toastr.css';
+
+window.toastr = toastr;
 
 $(document).on('turbolinks:load', function() {
   $('.copy').click(function() {

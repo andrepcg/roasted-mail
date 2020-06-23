@@ -2,9 +2,9 @@
 
 # Roasted.email
 
-Open-source Ruby on Rails app for disposable temporary emails.
+> Open-source Ruby on Rails app for disposable temporary emails.
 
-Try it now in:
+See it live in:
 
 - https://roasted.email
 - https://ihave.buzz/

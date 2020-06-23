@@ -799,7 +799,6 @@ body.dark-layout .popover .popover-body {
 }
 
 body.dark-layout .toast {
-  background-color: #1a233a;
   box-shadow: -5px 5px 5px 0px rgba(0, 0, 0, 0.3);
   border: 1px solid #464d5c;
 }
@@ -2023,19 +2022,19 @@ body.dark-layout .swal2-container .swal2-modal .swal2-content .swal2-input {
   color: #FFFFFF;
 }
 
-body.dark-layout .toast-container .toast.toast-info {
+body.dark-layout #toast-container .toast.toast-info {
   background-color: #00CFDD;
 }
 
-body.dark-layout .toast-container .toast.toast-success {
+body.dark-layout #toast-container .toast.toast-success {
   background-color: #39DA8A;
 }
 
-body.dark-layout .toast-container .toast.toast-error {
+body.dark-layout #toast-container .toast.toast-error {
   background-color: #FF5B5C;
 }
 
-body.dark-layout .toast-container .toast.toast-warning {
+body.dark-layout #toast-container .toast.toast-warning {
   background-color: #FDAC41;
 }
 
