@@ -1,15 +1,17 @@
 <tr class="email_entry" data-email-id="<%= email_entry.id %>">
   <td>
-    <div class="d-flex align-items-center">
+    <%= link_to mailbox_email_path(email_entry), class: 'd-flex align-items-center', remote: true do %>
       <span class="read-circle"><%= icon('fas', 'circle', class: !email_entry.read_at && "success") %></span>
-    <div class="ml-1">
-      <h6 class="text-bold-500 mb-0"><%= email_entry.name %></h6>
-      <small class="text-muted"><%= email_entry.from %></small>
-    </div>
-    </div>
+      <div class="ml-1">
+        <h6 class="text-bold-500 mb-0"><%= email_entry.name %></h6>
+        <small class="text-muted"><%= email_entry.from %></small>
+      </div>
+    <% end %>
   </td>
-  <td><%= email_entry.subject.truncate(25) %></td>
-  <td><%= email_entry.created_at %></td>
+  <td>
+    <h6><%= email_entry.subject.truncate(30) %></h6>
+    <small class="text-muted"><%= email_entry.created_at %></span>
+  </td>
   <td>
     <%= link_to mailbox_email_path(email_entry), class: 'open btn btn-primary btn-sm shadow', data: { toggle: 'tooltip', placement: 'top', original_title: 'Open' } , remote: true do %>
       <%= icon('fas', 'envelope-open') %>
