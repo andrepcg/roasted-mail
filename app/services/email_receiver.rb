@@ -15,6 +15,14 @@ class EmailReceiver
 
   private
 
+  def valid_params?
+    @params['subject'] &&
+      @params['headers'] &&
+      @params['sender_ip'] &&
+      @params['to'] &&
+      @params['from']
+  end
+
   def check_destinatary_exists
     Mailbox.find_by!(email: @to.downcase)
   end
