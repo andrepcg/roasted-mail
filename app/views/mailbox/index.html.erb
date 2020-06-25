@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<%= render partial: 'stats', locals: { email_stats: @email_stats, mailbox_stats: @mailbox_stats } %>
+<%= render partial: 'stats', locals: { email_stats: @stats[:emails_count], mailbox_stats: @stats[:mailboxes_count] } %>
 
 <div class="row">
   <div class="offset-md-3 col-md-6 mt-4">

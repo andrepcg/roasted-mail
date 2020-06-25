@@ -5,8 +5,7 @@ class MailboxController < ApplicationController
   before_action :redirect_to_mailbox, only: %i[index]
 
   def index
-    @email_stats = Log.email_stats
-    @mailbox_stats = Log.mailbox_stats
+    @stats = StatsProducer.call
   end
 
   def inbox; end
