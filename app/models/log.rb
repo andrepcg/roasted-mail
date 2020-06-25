@@ -12,7 +12,7 @@ class Log < ApplicationRecord
     end
 
     def mailbox_stats
-      Rails.cache.fetch('email_stats', expires_in: 5.minutes) do
+      Rails.cache.fetch('mailbox_stats', expires_in: 5.minutes) do
         Log.generate_mailbox.size
       end
     end
