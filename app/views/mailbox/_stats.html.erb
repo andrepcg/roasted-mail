@@ -4,7 +4,9 @@
       <div class="card-header d-flex justify-content-between align-items-center">
         <div class="card-title-content">
           <h4 class="card-title">📈 Stats</h4>
-          <small class="text-muted">since <%= l(Log.first.created_at, format: :long) %></small>
+          <% if Log.first.present? %>
+            <small class="text-muted">since <%= l(Log.first.created_at, format: :long) %></small>
+          <% end %>
         </div>
         <i class="bx bx-dots-vertical-rounded font-medium-3 cursor-pointer"></i>
       </div>
