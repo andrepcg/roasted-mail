@@ -86,7 +86,11 @@
 
 <div class="row mb-1">
   <div class="col-12 d-flex align-items-center justify-content-between">
-    <button id="refresh" class="btn btn-primary glow"><%= t('.refresh') %></button>
+    <div class="custom-control custom-switch custom-control-inline custom-switch-warning custom-switch-glow">
+      <input type="checkbox" class="custom-control-input" checked="true" id="autoRefresh">
+      <label class="custom-control-label mr-1" for="autoRefresh"></label>
+      <span>Auto refresh</span>
+    </div>
     <small class="text-muted"><%= t('.last_refresh') %>: <span id="last_refresh"></span></small>
 
   </div>

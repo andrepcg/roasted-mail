@@ -4,7 +4,10 @@ class MailboxController < ApplicationController
   before_action :validate_mailbox, only: %i[inbox]
   before_action :redirect_to_mailbox, only: %i[index]
 
-  def index; end
+  def index
+    @email_stats = Log.email_stats
+    @mailbox_stats = Log.mailbox_stats
+  end
 
   def inbox; end
 
@@ -28,6 +31,7 @@ class MailboxController < ApplicationController
 
   def destroy
     current_mailbox.destroy
+    Log.create(action: :destroy_mailbox)
     destroy_session
     redirect_to root_url
   end

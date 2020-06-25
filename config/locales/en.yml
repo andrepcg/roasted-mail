@@ -33,7 +33,7 @@ en:
   app_name: "Roasted.email"
   mailbox:
     index:
-      generate: Generate Mailbox
+      generate: 🔥 Generate Mailbox 🔥
     inbox:
       generated_at: Mailbox generated at
       emails_received: Emails received

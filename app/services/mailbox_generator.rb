@@ -5,6 +5,8 @@ class MailboxGenerator
     username = AnimalCodes.sample
     domain = Domain.order(Arel.sql('RANDOM()')).first
     email = "#{username}@#{domain.domain}"
-    Mailbox.create(email: email)
+    mb = Mailbox.create(email: email)
+    Log.create(action: :generate_mailbox)
+    mb
   end
 end

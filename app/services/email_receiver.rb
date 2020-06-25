@@ -11,6 +11,7 @@ class EmailReceiver
     @mailbox = check_destinatary_exists
     create_inbound_email
     parse_attachments
+    log_action
   end
 
   private
@@ -45,5 +46,9 @@ class EmailReceiver
     count = @params['attachments'].to_i
     attachments = count.times.map { |i| @params["attachment#{i + 1}"] }
     @inbound_email.files.attach(attachments) if attachments.present?
+  end
+
+  def log_action
+    Log.create(action: :receive_email)
   end
 end

@@ -14,6 +14,7 @@ class Mailbox::EmailsController < ApplicationController
 
   def show
     @email.update(read_at: Time.zone.now)
+    Log.create(action: :open_email)
     respond_to do |format|
       format.js
     end
@@ -24,6 +25,7 @@ class Mailbox::EmailsController < ApplicationController
   end
 
   def destroy
+    Log.create(action: :delete_email)
     @email.destroy
   end
 

@@ -2,13 +2,11 @@ const EMAIL_REFRESH_TIMER = 5000;
 
 $(document).on('turbolinks:load', function() {
 
-  const refreshButton = $('#refresh');
   const lastRefresh = $('#last_refresh');
 
   function loadEmails() {
     // $('.tooltip').tooltip('dispose');
     const currentPage = $('#emails_list').data('page');
-    refreshButton.prop('disabled', true).text('Refreshing...');
     $.ajax({
       "type": "GET",
       "url": "/mailbox/emails",
@@ -17,14 +15,21 @@ $(document).on('turbolinks:load', function() {
         "page": currentPage
       }
     }).done(() => {
-      refreshButton.prop('disabled', false).text('Refresh');
       lastRefresh.text(new Date().toLocaleString())
     });
   }
 
   window.addEventListener("turbolinks:load", loadEmails);
 
-  refreshButton.click(loadEmails);
+  let refreshInterval = setInterval(loadEmails, EMAIL_REFRESH_TIMER);
+  $("#autoRefresh").prop('checked', true);
 
-  setInterval(loadEmails, EMAIL_REFRESH_TIMER);
+  $("#autoRefresh").change(function() {
+    const isChecked = this.checked;
+    if (isChecked) {
+      refreshInterval = setInterval(loadEmails, EMAIL_REFRESH_TIMER);
+    } else {
+      clearInterval(refreshInterval);
+    }
+  });
 });

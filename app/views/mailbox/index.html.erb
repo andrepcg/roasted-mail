@@ -4,7 +4,7 @@
       <div class="card-content">
         <div class="card-body">
           <p class="card-text">
-            Roasted.email is a service for disposable temporary emails. Just click generate and a random email will be given to you.
+            Roasted.email is a service for disposable temporary emails. Just click generate and a random email will be created for you. No logins. No accounts. One single click.
           </p>
           <p class="card-text">
             <b>All mailboxes expire automatically after <%= distance_of_time_in_words(Mailbox::DEFAULT_VALID_FOR) %> and all the stored emails are deleted.</b> Use this service for temporary email only, otherwise you might lose your data.
@@ -19,10 +19,11 @@
   </div>
 </div>
 
+<%= render partial: 'stats', locals: { email_stats: @email_stats, mailbox_stats: @mailbox_stats } %>
 
 <div class="row">
   <div class="offset-md-3 col-md-6 mt-4">
-    <h4 class="card-title">Domains in use</h4>
+    <h4 class="card-title">Our domains</h4>
     <% Domain.all.order('RANDOM()').each do |domain| %>
       <a href="<%= domain.url %>" class="badge badge-<%= random_color %> mr-1 mb-1">@<%= domain.domain %></a>
     <% end %>
