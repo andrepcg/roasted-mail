@@ -50,3 +50,12 @@ vendor/assets/bower_components
 *.bowerrc
 bower.json
 node_modules
+
+.git
+.gitignore
+.DS_Store
+README.md
+/Dockerfile
+/env.*
+/log
+/tmp

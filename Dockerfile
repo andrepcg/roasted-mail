@@ -1,50 +1,61 @@
-FROM ruby:2.6.5-alpine AS build-env
-
-ARG RAILS_ROOT=/app
-ARG BUILD_PACKAGES="build-base curl-dev git"
-ARG DEV_PACKAGES="postgresql-dev yaml-dev zlib-dev nodejs yarn"
-ARG RUBY_PACKAGES="tzdata"
-ENV RAILS_ENV=production
-ENV NODE_ENV=production
-ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
-
-WORKDIR $RAILS_ROOT
-
-RUN apk update \
-    && apk upgrade \
-    && apk add --update --no-cache $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES
-
-COPY Gemfile* package.json yarn.lock ./
-# install rubygem
-RUN gem install bundler:2.1.4
-
-COPY Gemfile Gemfile.lock $RAILS_ROOT/
-
-RUN bundle config --global frozen 1 \
-    && bundle install --without development:test:assets -j4 --retry 3 --path=vendor/bundle \
-    && rm -rf vendor/bundle/ruby/2.6.0/cache/*.gem \
-    && find vendor/bundle/ruby/2.6.0/gems/ -name "*.c" -delete \
-    && find vendor/bundle/ruby/2.6.0/gems/ -name "*.o" -delete
-RUN yarn install --production
-COPY . .
-RUN bin/rails webpacker:compile
-RUN bin/rails assets:precompile
-RUN bundle exec whenever -c && bundle exec whenever --update-crontab && touch ./log/cron.log
-RUN rm -rf node_modules tmp/cache app/assets vendor/assets spec
-
-
-############### Build step done ###############
 FROM ruby:2.6.5-alpine
 
-ARG RAILS_ROOT=/app
-ARG PACKAGES="tzdata postgresql-client nodejs bash dcron"
-ENV RAILS_ENV=production
-ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
-WORKDIR $RAILS_ROOT
-# install packages
-RUN apk update \
-    && apk upgrade \
-    && apk add --update --no-cache $PACKAGES
-COPY --from=build-env $RAILS_ROOT $RAILS_ROOT
+# Add basic packages
+RUN apk add --no-cache \
+      build-base \
+      postgresql-dev \
+      git \
+      nodejs \
+      yarn \
+      tzdata \
+      file \
+      dcron \
+      postgresql-client
+
+WORKDIR /app
+
+# Install standard Node modules
+COPY package.json yarn.lock /app/
+RUN yarn install --frozen-lockfile
+
+# Install standard gems
+COPY Gemfile* /app/
+RUN gem install bundler:2.1.4
+RUN bundle config --local frozen 1 && \
+    bundle config --local build.sassc --disable-march-tune-native && \
+    bundle install -j4 --retry 3
+
+
+# Install Ruby gems (for production only)
+COPY Gemfile* /app/
+RUN bundle config --local without 'development test' && \
+            bundle install -j4 --retry 3 && \
+            bundle clean --force && \
+            rm -rf /usr/local/bundle/cache/*.gem && \
+            find /usr/local/bundle/gems/ -name "*.c" -delete && \
+            find /usr/local/bundle/gems/ -name "*.o" -delete
+
+# Copy the whole application folder into the image
+COPY . /app
+
+# Compile assets with Webpacker or Sprockets
+#
+# Notes:
+#   1. Executing "assets:precompile" runs "yarn:install" prior
+#   2. Executing "assets:precompile" runs "webpacker:compile", too
+#   3. For an app using encrypted credentials, Rails raises a `MissingKeyError`
+#      if the master key is missing. Because on CI there is no master key,
+#      we hide the credentials while compiling assets (by renaming them before and after)
+#
+RUN RAILS_ENV=production \
+            SECRET_KEY_BASE=dummy \
+            bundle exec rails assets:precompile \
+            && bundle exec whenever --update-crontab
+
+# Remove folders not needed in resulting image
+RUN rm -rf node_modules tmp/cache vendor/bundle test spec
+
+ENV RAILS_LOG_TO_STDOUT true
+
+# Expose Puma port
 EXPOSE 3000
-#CMD ["rails", "server", "-b", "0.0.0.0"]
