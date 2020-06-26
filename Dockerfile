@@ -1,28 +1,50 @@
-FROM ruby:2.6.5
+FROM ruby:2.6.5-alpine AS build-env
 
-RUN apt-get update -qq && apt-get install -y build-essential
+ARG RAILS_ROOT=/app
+ARG BUILD_PACKAGES="build-base curl-dev git"
+ARG DEV_PACKAGES="postgresql-dev yaml-dev zlib-dev nodejs yarn"
+ARG RUBY_PACKAGES="tzdata"
+ENV RAILS_ENV=production
+ENV NODE_ENV=production
+ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
 
-# for postgres
-RUN apt-get install -y libpq-dev cron
+WORKDIR $RAILS_ROOT
 
-# for nokogiri
-RUN apt-get install -y libxml2-dev libxslt1-dev
+RUN apk update \
+    && apk upgrade \
+    && apk add --update --no-cache $BUILD_PACKAGES $DEV_PACKAGES $RUBY_PACKAGES
 
-
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt-get update -qq && apt-get install -y build-essential nodejs yarn nano
-
-ENV APP_HOME /app
-RUN mkdir $APP_HOME
-WORKDIR $APP_HOME
-
+COPY Gemfile* package.json yarn.lock ./
+# install rubygem
 RUN gem install bundler:2.1.4
-ADD Gemfile* $APP_HOME/
-RUN bundle install
 
-ADD . $APP_HOME
-RUN yarn install --check-files
-RUN touch /var/log/cron.log
-RUN bundle exec whenever --update-crontab
-RUN bundle exec rake assets:precompile
+COPY Gemfile Gemfile.lock $RAILS_ROOT/
+
+RUN bundle config --global frozen 1 \
+    && bundle install --without development:test:assets -j4 --retry 3 --path=vendor/bundle \
+    && rm -rf vendor/bundle/ruby/2.6.0/cache/*.gem \
+    && find vendor/bundle/ruby/2.6.0/gems/ -name "*.c" -delete \
+    && find vendor/bundle/ruby/2.6.0/gems/ -name "*.o" -delete
+RUN yarn install --production
+COPY . .
+RUN bin/rails webpacker:compile
+RUN bin/rails assets:precompile
+RUN bundle exec whenever -c && bundle exec whenever --update-crontab && touch ./log/cron.log
+RUN rm -rf node_modules tmp/cache app/assets vendor/assets spec
+
+
+############### Build step done ###############
+FROM ruby:2.6.5-alpine
+
+ARG RAILS_ROOT=/app
+ARG PACKAGES="tzdata postgresql-client nodejs bash dcron"
+ENV RAILS_ENV=production
+ENV BUNDLE_APP_CONFIG="$RAILS_ROOT/.bundle"
+WORKDIR $RAILS_ROOT
+# install packages
+RUN apk update \
+    && apk upgrade \
+    && apk add --update --no-cache $PACKAGES
+COPY --from=build-env $RAILS_ROOT $RAILS_ROOT
+EXPOSE 3000
+#CMD ["rails", "server", "-b", "0.0.0.0"]

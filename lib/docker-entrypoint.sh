@@ -8,6 +8,7 @@ fi
 
 bundle exec rake db:migrate 2>/dev/null || bundle exec rake db:setup
 
-service cron start
+# service cron start
+crond
 
 exec bundle exec "$@"
