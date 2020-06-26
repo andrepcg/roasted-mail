@@ -86,15 +86,6 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
-    capybara (3.32.2)
-      addressable
-      mini_mime (>= 0.1.3)
-      nokogiri (~> 1.8)
-      rack (>= 1.6.0)
-      rack-test (>= 0.6.3)
-      regexp_parser (~> 1.5)
-      xpath (~> 3.2)
-    childprocess (3.0.0)
     chronic (0.10.2)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
@@ -300,9 +291,6 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
-    selenium-webdriver (3.142.7)
-      childprocess (>= 0.5, < 4.0)
-      rubyzip (>= 1.2.2)
     sentry-raven (3.0.0)
       faraday (>= 1.0)
     signet (0.14.0)
@@ -334,10 +322,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webdrivers (4.4.1)
-      nokogiri (~> 1.6)
-      rubyzip (>= 1.3.0)
-      selenium-webdriver (>= 3.0, < 4.0)
     webpacker (4.2.2)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
@@ -347,8 +331,6 @@ GEM
     websocket-extensions (0.1.5)
     whenever (1.0.0)
       chronic (>= 0.6.3)
-    xpath (3.2.0)
-      nokogiri (~> 1.8)
     zeitwerk (2.3.0)
 
 PLATFORMS
@@ -358,7 +340,6 @@ DEPENDENCIES
   activeadmin
   bootsnap (>= 1.4.2)
   byebug
-  capybara (>= 2.15)
   devise
   dotenv-rails
   faker!
@@ -378,11 +359,9 @@ DEPENDENCIES
   rubocop (~> 0.85.1)
   rubocop-rails
   sass-rails (>= 6)
-  selenium-webdriver
   sentry-raven
   turbolinks (~> 5)
   web-console (>= 3.3.0)
-  webdrivers
   webpacker (~> 4.0)
   whenever
 
