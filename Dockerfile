@@ -10,7 +10,8 @@ RUN apk add --no-cache \
       tzdata \
       file \
       dcron \
-      postgresql-client
+      postgresql-client \
+      bash
 
 WORKDIR /app
 
@@ -20,20 +21,15 @@ RUN yarn install --frozen-lockfile
 
 # Install standard gems
 COPY Gemfile* /app/
-RUN gem install bundler:2.1.4
-RUN bundle config --local frozen 1 && \
-    bundle config --local build.sassc --disable-march-tune-native && \
-    bundle install -j4 --retry 3
-
-
-# Install Ruby gems (for production only)
-COPY Gemfile* /app/
-RUN bundle config --local without 'development test' && \
-            bundle install -j4 --retry 3 && \
-            bundle clean --force && \
-            rm -rf /usr/local/bundle/cache/*.gem && \
-            find /usr/local/bundle/gems/ -name "*.c" -delete && \
-            find /usr/local/bundle/gems/ -name "*.o" -delete
+RUN gem install bundler:2.1.4 && \
+    bundle config --local without 'development test' && \
+    bundle install -j4 --retry 3 && \
+    # Remove unneeded gems
+    bundle clean --force && \
+    # Remove unneeded files from installed gems (cached *.gem, *.o, *.c)
+    rm -rf /usr/local/bundle/cache/*.gem && \
+    find /usr/local/bundle/gems/ -name "*.c" -delete && \
+    find /usr/local/bundle/gems/ -name "*.o" -delete
 
 # Copy the whole application folder into the image
 COPY . /app
@@ -48,9 +44,9 @@ COPY . /app
 #      we hide the credentials while compiling assets (by renaming them before and after)
 #
 RUN RAILS_ENV=production \
-            SECRET_KEY_BASE=dummy \
-            bundle exec rails assets:precompile \
-            && bundle exec whenever --update-crontab
+    SECRET_KEY_BASE=dummy \
+    bundle exec rails assets:precompile \
+    && bundle exec whenever --update-crontab
 
 # Remove folders not needed in resulting image
 RUN rm -rf node_modules tmp/cache vendor/bundle test spec
