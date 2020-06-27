@@ -10,11 +10,12 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
- *= require ./bootstrap/bootstrap
- *= require ./bootstrap/bootstrap-extended
- *= require ./bootstrap/colors
- *= require ./bootstrap/components
- *= require ./bootstrap/themes/dark-layout
+ *= require bootstrap
+ *= require bootstrap-extended
+ *= require colors
+ *= require components
+ *= require themes/dark-layout
+ *= require toastr
  *= require_self
  */
 

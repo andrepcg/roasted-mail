@@ -17,7 +17,7 @@
 #
 
 # https://github.com/javan/whenever/issues/656#issuecomment-239111064
-ENV.each { |k, v| env(k, v) }
+# ENV.each { |k, v| env(k, v) }
 
 every 3.hours do
   rake 'mailbox:remove_expired'
