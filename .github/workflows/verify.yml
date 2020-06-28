@@ -97,7 +97,7 @@ jobs:
         run: |
           yarn install --pure-lockfile
 
-      - name: Setup test database
+      - name: Setup test database and run tests
         env:
           RAILS_ENV: test
           DB_HOST: localhost
@@ -105,6 +105,4 @@ jobs:
           DB_PASSWORD: postgres
         run: |
           bin/rails db:setup
-
-      - name: Run tests
-        run: RAILS_ENV=test bundle exec rspec
+          bundle exec rspec
