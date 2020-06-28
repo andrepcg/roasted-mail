@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 {
   id: @email.id,
   text: @email.text,
@@ -5,7 +7,7 @@
   to: @mailbox.email,
   from: {
     name: @email.name,
-    email: @email.from,
+    email: @email.from
   },
   subject: @email.subject,
   headers: @email.headers,

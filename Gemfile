@@ -36,22 +36,22 @@ gem 'dotenv-rails'
 gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 gem 'font-awesome-sass', '~> 5.13.0'
 gem 'google-cloud-storage', '~> 1.11', require: false
+gem 'jb'
 gem 'json'
 gem 'mail'
 gem 'newrelic_rpm'
 gem 'pagy', '~> 3.5'
 gem 'rack-attack'
-gem 'sentry-raven'
-gem 'whenever', require: false
-gem 'jb'
 gem 'rswag-api'
 gem 'rswag-ui'
+gem 'sentry-raven'
+gem 'whenever', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'brakeman'
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'bundler-audit'
+  gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'fabrication'
   gem 'rspec-rails'
   gem 'rswag-specs'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Fabricator(:mailbox) do
   email      { Faker::Internet.email }
   token      { Faker::Internet.password(min_length: 10, max_length: 20) }

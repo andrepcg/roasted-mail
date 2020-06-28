@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/emails', type: :request do
-
   path '/api/v1/mailbox/{mailbox_id}/emails' do
     parameter name: 'mailbox_id', in: :path, type: :integer, description: 'mailbox_id'
     parameter name: 'page', in: :query, type: :string, description: 'Page number'
@@ -9,7 +10,7 @@ RSpec.describe 'api/v1/emails', type: :request do
 
     get 'Retrieves emails from a mailbox' do
       tags 'Emails'
-      security [ Token: [] ]
+      security [Token: []]
       consumes 'application/json'
       produces 'application/json'
 
@@ -18,7 +19,7 @@ RSpec.describe 'api/v1/emails', type: :request do
 
         let(:mailbox) { Fabricate :mailbox }
         let(:mailbox_id) { mailbox.id }
-        let("X-TOKEN") { mailbox.token }
+        let('X-TOKEN') { mailbox.token }
 
         run_test! do |response|
           data = JSON.parse(response.body)
@@ -30,7 +31,7 @@ RSpec.describe 'api/v1/emails', type: :request do
       response 401, 'authentication failed' do
         let(:mailbox) { MailboxGenerator.call }
         let(:mailbox_id) { mailbox.id }
-        let("X-TOKEN") { "tokenXYZ" }
+        let('X-TOKEN') { 'tokenXYZ' }
         run_test!
       end
     end
@@ -42,7 +43,7 @@ RSpec.describe 'api/v1/emails', type: :request do
 
     get 'shows email full details' do
       tags 'Emails'
-      security [ Token: [] ]
+      security [Token: []]
       consumes 'application/json'
       produces 'application/json'
 
@@ -52,7 +53,7 @@ RSpec.describe 'api/v1/emails', type: :request do
         let(:mailbox) { Fabricate :mailbox }
         let(:mailbox_id) { mailbox.id }
         let(:id) { mailbox.inbound_emails.first.id }
-        let("X-TOKEN") { mailbox.token }
+        let('X-TOKEN') { mailbox.token }
 
         run_test! do |response|
           data = JSON.parse(response.body)
@@ -64,14 +65,14 @@ RSpec.describe 'api/v1/emails', type: :request do
         let(:mailbox) { Fabricate :mailbox }
         let(:mailbox_id) { mailbox.id }
         let(:id) { mailbox.inbound_emails.first.id }
-        let("X-TOKEN") { "tokenXYZ" }
+        let('X-TOKEN') { 'tokenXYZ' }
         run_test!
       end
     end
 
     delete 'deletes an email' do
       tags 'Emails'
-      security [ Token: [] ]
+      security [Token: []]
       consumes 'application/json'
       produces 'application/json'
 
@@ -79,7 +80,7 @@ RSpec.describe 'api/v1/emails', type: :request do
         let(:mailbox) { Fabricate :mailbox }
         let(:mailbox_id) { mailbox.id }
         let(:id) { mailbox.inbound_emails.first.id }
-        let("X-TOKEN") { mailbox.token }
+        let('X-TOKEN') { mailbox.token }
 
         run_test!
       end
@@ -88,7 +89,7 @@ RSpec.describe 'api/v1/emails', type: :request do
         let(:mailbox) { Fabricate :mailbox }
         let(:mailbox_id) { mailbox.id }
         let(:id) { mailbox.inbound_emails.first.id }
-        let("X-TOKEN") { "tokenXYZ" }
+        let('X-TOKEN') { 'tokenXYZ' }
         run_test!
       end
     end

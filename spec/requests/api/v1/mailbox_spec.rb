@@ -1,14 +1,15 @@
+# frozen_string_literal: true
+
 require 'swagger_helper'
 
 RSpec.describe 'api/v1/mailbox', type: :request do
-
   path '/api/v1/mailbox' do
-
     post 'creates a mailbox' do
       tags 'Mailbox'
       consumes 'application/json'
       produces 'application/json'
-      description 'Generates a random mailbox. API method is capped at 15 requests every 24 seconds (or 1 request every 1.6 seconds)'
+      description 'Generates a random mailbox. API method is capped at 15 requests every 24 seconds' \
+                  '(or 1 request every 1.6 seconds)'
 
       response 201, 'mailbox created' do
         schema '$ref' => '#/components/schemas/mailbox'
@@ -16,8 +17,10 @@ RSpec.describe 'api/v1/mailbox', type: :request do
       end
 
       response 429, 'too many requests' do
-        header 'RateLimit-Limit', type: :integer, description: 'The number of allowed requests in the current period'
-        header 'Rate-Limit-Remaining', type: :integer, description: 'The number of remaining requests in the current period'
+        header 'RateLimit-Limit', type: :integer,
+                                  description: 'The number of allowed requests in the current period'
+        header 'Rate-Limit-Remaining', type: :integer,
+                                       description: 'The number of remaining requests in the current period'
         header 'Rate-Limit-Reset', type: :integer, description: 'The unix timestamp when the limit resets'
         run_test!
       end
@@ -30,7 +33,7 @@ RSpec.describe 'api/v1/mailbox', type: :request do
 
     get 'Retrieves a mailbox' do
       tags 'Mailbox'
-      security [ Token: [] ]
+      security [Token: []]
       consumes 'application/json'
       produces 'application/json'
 
@@ -39,7 +42,7 @@ RSpec.describe 'api/v1/mailbox', type: :request do
 
         let(:mailbox) { Fabricate :mailbox }
         let(:id) { mailbox.id }
-        let("X-TOKEN") { mailbox.token }
+        let('X-TOKEN') { mailbox.token }
 
         run_test! do |response|
           data = JSON.parse(response.body)
@@ -51,21 +54,21 @@ RSpec.describe 'api/v1/mailbox', type: :request do
       response 401, 'authentication failed' do
         let(:mailbox) { Fabricate :mailbox }
         let(:id) { mailbox.id }
-        let("X-TOKEN") { "tokenXYZ" }
+        let('X-TOKEN') { 'tokenXYZ' }
         run_test!
       end
     end
 
     delete 'deletes mailbox' do
       tags 'Mailbox'
-      security [ Token: [] ]
+      security [Token: []]
       consumes 'application/json'
       produces 'application/json'
 
       response 204, 'successful' do
         let(:mailbox) { Fabricate :mailbox }
         let(:id) { mailbox.id }
-        let("X-TOKEN") { mailbox.token }
+        let('X-TOKEN') { mailbox.token }
 
         run_test!
       end
@@ -73,7 +76,7 @@ RSpec.describe 'api/v1/mailbox', type: :request do
       response 401, 'authentication failed' do
         let(:mailbox) { Fabricate :mailbox }
         let(:id) { mailbox.id }
-        let("X-TOKEN") { "tokenXYZ" }
+        let('X-TOKEN') { 'tokenXYZ' }
         run_test!
       end
     end

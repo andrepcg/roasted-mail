@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 {
   emails: @emails.map do |email|
     {
@@ -5,13 +7,11 @@
       text: email.text,
       from: {
         name: email.name,
-        email: email.from,
+        email: email.from
       },
       subject: email.subject,
-      received_at: email.created_at,
+      received_at: email.created_at
     }
   end,
   pagy: @pagy_metadata
 }
-
-

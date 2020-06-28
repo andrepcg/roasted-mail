@@ -35,7 +35,7 @@ RSpec.configure do |config|
       components: {
         securitySchemes: {
           Token: {
-            description: "Mailbox Token in the header",
+            description: 'Mailbox Token in the header',
             type: :apiKey,
             name: 'X-TOKEN',
             in: :header
@@ -51,7 +51,7 @@ RSpec.configure do |config|
               created_at: { type: :string },
               expires_at: { type: :string },
               last_email_id: { type: :integer, nullable: true },
-              last_email_received_at: { type: :string, nullable: true },
+              last_email_received_at: { type: :string, nullable: true }
             }
           },
           email: {
@@ -65,7 +65,7 @@ RSpec.configure do |config|
                 type: :object,
                 properties: {
                   name: { type: :string, nullable: true },
-                  email: { type: :string },
+                  email: { type: :string }
                 }
               },
               subject: { type: :string },

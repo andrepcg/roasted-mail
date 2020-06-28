@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class MailboxController < ApiController
@@ -10,7 +12,7 @@ module Api
 
       def create
         @mailbox = MailboxGenerator.call
-        render :show, status: 201
+        render :show, status: :created
       end
 
       def destroy

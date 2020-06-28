@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Api
   module V1
     class EmailsController < ApiController
@@ -10,8 +12,7 @@ module Api
         @pagy_metadata = pagy_metadata(@pagy)
       end
 
-      def show
-      end
+      def show; end
 
       def destroy
         @email.destroy
