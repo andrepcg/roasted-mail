@@ -16,6 +16,14 @@ See it live in:
 - https://iamno.monster/
 
 
+## API
+
+Roasted.email also provides a RESTful API to generate malboxes and read emails.
+
+API defined using Swagger. [swagger/v1/swagger.yaml](swagger.yaml)
+
+Read the docs live in https://roasted.email/api-docs
+
 ## TODO
 
 - [ ] Write better readme
