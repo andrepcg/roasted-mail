@@ -1,0 +1,8 @@
+{
+  email: @mailbox.email,
+  token: @mailbox.token,
+  created_at: @mailbox.created_at,
+  expires_at: @mailbox.expires_at,
+  last_email_id: @last_email&.id,
+  last_email_received_at: @last_email&.created_at
+}

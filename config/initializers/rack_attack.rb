@@ -7,4 +7,10 @@ class Rack::Attack
       req.ip
     end
   end
+
+  throttle('by ip creating mailbox in api', limit: 15, period: 20.seconds) do |req|
+    if req.path == '/api/v1/mailbox' && req.post?
+      req.ip
+    end
+  end
 end

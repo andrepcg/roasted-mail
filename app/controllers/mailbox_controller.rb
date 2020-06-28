@@ -30,7 +30,6 @@ class MailboxController < ApplicationController
 
   def destroy
     current_mailbox.destroy
-    Log.create(action: :destroy_mailbox)
     destroy_session
     redirect_to root_url
   end

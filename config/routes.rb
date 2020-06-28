@@ -8,18 +8,13 @@ Rails.application.routes.draw do
     post '/email_inbound', to: 'sendgrid#inbound'
   end
 
-  # namespace :sessions do
-  #   post '/logout', action: :destroy, as: :logout
-  #   get '/:email/:token', action: :create, constraints: { email: %r{[^/]+} }, as: :login
-  # end
-
-  # resources :mailbox, only: %i[index create destroy],
-  #                     param: :email,
-  #                     constraints: { :email => /[^\/]+/ } do
-  #   member do
-  #     get :fetch_emails
-  #   end
-  # end
+  namespace :api do
+    namespace :v1 do
+      resources :mailbox, only: %i[show create destroy] do
+        resources :emails, only: %i[index show destroy]
+      end
+    end
+  end
 
   namespace :mailbox do
     resources :emails, only: %i[index destroy show], param: :email_id do
@@ -34,12 +29,6 @@ Rails.application.routes.draw do
     delete '', action: :destroy, as: :destroy
     get '/:email/:token', action: :login, constraints: { email: %r{[^/]+} }, as: :login
   end
-
-  # resources :mailbox, only: %i[index create destroy] do
-  #   collection do
-  #     get :fetch_emails
-  #   end
-  # end
 
   root to: 'mailbox#index'
 end

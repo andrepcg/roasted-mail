@@ -1,0 +1,20 @@
+{
+  id: @email.id,
+  text: @email.text,
+  html: @email.html,
+  to: @mailbox.email,
+  from: {
+    name: @email.name,
+    email: @email.from,
+  },
+  subject: @email.subject,
+  headers: @email.headers,
+  received_at: @email.created_at,
+  sender_ip: @email.sender_ip,
+  attachments: @email.files.map do |file|
+    {
+      filename: file.filename,
+      url: rails_blob_path(file, only_path: false)
+    }
+  end
+}

@@ -11,6 +11,8 @@ class Mailbox < ApplicationRecord
 
   scope :expired, -> { where('expires_at <= ?', Time.zone.now) }
 
+  after_destroy :log
+
   def self.create_custom(username, domain_id)
     domain = Domain.find domain_id
     email = "#{username}@#{domain.domain}"
@@ -19,5 +21,11 @@ class Mailbox < ApplicationRecord
 
   def to_param
     email
+  end
+
+  private
+
+  def log
+    Log.create(action: :destroy_mailbox)
   end
 end

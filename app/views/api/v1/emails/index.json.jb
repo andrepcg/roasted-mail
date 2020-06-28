@@ -1,0 +1,17 @@
+{
+  emails: @emails.map do |email|
+    {
+      id: email.id,
+      text: email.text,
+      from: {
+        name: email.name,
+        email: email.from,
+      },
+      subject: email.subject,
+      received_at: email.created_at,
+    }
+  end,
+  pagy: @pagy_metadata
+}
+
+

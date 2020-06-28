@@ -19,8 +19,6 @@ class ApplicationController < ActionController::Base
   end
 
   def destroy_session
-    # session.delete(:mailbox_id)
-    # session.delete(:mailbox_token)
     reset_session
     @current_mailbox = nil
   end
