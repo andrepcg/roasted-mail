@@ -21,7 +21,7 @@ class Mailbox::EmailsController < ApplicationController
   end
 
   def render_email_html
-    render :email_html, layout: false
+    render html: @email.html.html_safe
   end
 
   def destroy
