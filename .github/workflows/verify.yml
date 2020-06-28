@@ -58,7 +58,7 @@ jobs:
         env:
           POSTGRES_USER: roasted_mail
           POSTGRES_DB: roasted_mail_test
-          POSTGRES_PASSWORD: ""
+          POSTGRES_PASSWORD: postgres
         ports: ["5432:5432"]
 
     steps:
@@ -102,6 +102,7 @@ jobs:
           RAILS_ENV: test
           DB_HOST: localhost
           DB_USERNAME: roasted_mail
+          DB_PASSWORD: postgres
         run: |
           bin/rails db:setup
 
