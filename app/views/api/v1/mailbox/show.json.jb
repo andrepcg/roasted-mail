@@ -1,4 +1,5 @@
 {
+  id: @mailbox.id,
   email: @mailbox.email,
   token: @mailbox.token,
   created_at: @mailbox.created_at,

@@ -10,11 +10,11 @@ module Api
 
       def create
         @mailbox = MailboxGenerator.call
-        render :show
+        render :show, status: 201
       end
 
       def destroy
-        current_mailbox.destroy
+        @mailbox.destroy
       end
 
       private

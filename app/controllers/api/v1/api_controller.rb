@@ -18,7 +18,7 @@ module Api
       end
 
       def validate_mailbox_token
-        params[:token] = request.headers["HTTP_TOKEN"]
+        params[:token] = request.headers["HTTP_X_TOKEN"]
         head 401 unless params[:token].present?
       end
 

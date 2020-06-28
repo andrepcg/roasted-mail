@@ -44,10 +44,15 @@ gem 'rack-attack'
 gem 'sentry-raven'
 gem 'whenever', require: false
 gem 'jb'
+gem 'rswag-api'
+gem 'rswag-ui'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'fabrication'
+  gem 'rspec-rails'
+  gem 'rswag-specs'
 end
 
 group :development do
