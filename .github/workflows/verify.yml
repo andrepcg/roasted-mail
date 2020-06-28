@@ -107,4 +107,4 @@ jobs:
           bin/rails db:setup
 
       - name: Run tests
-        run: bundle exec rspec
+        run: RAILS_ENV=test bundle exec rspec
