@@ -17,6 +17,11 @@ development:
 test:
   <<: *default
   database: roasted_mail_test
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host:     <%= ENV['DB_HOST'] %>
+  port:     <%= ENV.fetch("DB_PORT") { 5432 } %>
+
 
 
 production:

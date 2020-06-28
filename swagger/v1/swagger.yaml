@@ -1,0 +1,255 @@
+---
+openapi: 3.0.1
+info:
+  title: Roasted.email - API V1
+  version: v1
+paths:
+  "/api/v1/mailbox/{mailbox_id}/emails":
+    parameters:
+    - name: mailbox_id
+      in: path
+      description: mailbox_id
+      required: true
+      schema:
+        type: integer
+    - name: page
+      in: query
+      description: Page number
+      schema:
+        type: string
+    get:
+      summary: Retrieves emails from a mailbox
+      tags:
+      - Emails
+      security:
+      - Token: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/mailbox_emails"
+        '401':
+          description: authentication failed
+          content: {}
+  "/api/v1/mailbox/{mailbox_id}/emails/{id}":
+    parameters:
+    - name: mailbox_id
+      in: path
+      description: mailbox_id
+      required: true
+      schema:
+        type: integer
+    - name: id
+      in: path
+      description: email id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: shows email full details
+      tags:
+      - Emails
+      security:
+      - Token: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/mailbox_emails"
+        '401':
+          description: authentication failed
+          content: {}
+    delete:
+      summary: deletes an email
+      tags:
+      - Emails
+      security:
+      - Token: []
+      responses:
+        '204':
+          description: successful
+          content: {}
+        '401':
+          description: authentication failed
+          content: {}
+  "/api/v1/mailbox":
+    post:
+      summary: creates a mailbox
+      tags:
+      - Mailbox
+      description: Generates a random mailbox. API method is capped at 15 requests
+        every 24 seconds (or 1 request every 1.6 seconds)
+      responses:
+        '201':
+          description: mailbox created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/mailbox"
+        '429':
+          description: too many requests
+          headers:
+            RateLimit-Limit:
+              type: integer
+              description: The number of allowed requests in the current period
+            Rate-Limit-Remaining:
+              type: integer
+              description: The number of remaining requests in the current period
+            Rate-Limit-Reset:
+              type: integer
+              description: The unix timestamp when the limit resets
+          content: {}
+  "/api/v1/mailbox/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: id
+      required: true
+      schema:
+        type: integer
+    get:
+      summary: Retrieves a mailbox
+      tags:
+      - Mailbox
+      security:
+      - Token: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/mailbox"
+        '401':
+          description: authentication failed
+          content: {}
+    delete:
+      summary: deletes mailbox
+      tags:
+      - Mailbox
+      security:
+      - Token: []
+      responses:
+        '204':
+          description: successful
+          content: {}
+        '401':
+          description: authentication failed
+          content: {}
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: roasted.email
+components:
+  securitySchemes:
+    Token:
+      description: Mailbox Token in the header
+      type: apiKey
+      name: X-TOKEN
+      in: header
+  schemas:
+    mailbox:
+      type: object
+      properties:
+        id:
+          type: integer
+        email:
+          type: string
+        token:
+          type: string
+        created_at:
+          type: string
+        expires_at:
+          type: string
+        last_email_id:
+          type: integer
+          nullable: true
+        last_email_received_at:
+          type: string
+          nullable: true
+    email:
+      type: object
+      properties:
+        id:
+          type: integer
+        text:
+          type: string
+        html:
+          type: string
+        to:
+          type: string
+        from:
+          type: object
+          properties:
+            name:
+              type: string
+              nullable: true
+            email:
+              type: string
+        subject:
+          type: string
+        headers:
+          type: string
+        received_at:
+          type: string
+        sender_ip:
+          type: string
+        attachments:
+          type: array
+          items:
+            "$ref": "#/components/schemas/attachment"
+    attachment:
+      type: object
+      properties:
+        filename:
+          type: string
+        url:
+          type: string
+    pagination:
+      type: object
+      properties:
+        count:
+          type: integer
+        items:
+          type: integer
+        last:
+          type: integer
+        next:
+          type: integer
+          nullable: true
+        prev:
+          type: integer
+          nullable: true
+        page:
+          type: integer
+    mailbox_emails:
+      type: object
+      properties:
+        emails:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+              text:
+                type: string
+              subject:
+                type: string
+              received_at:
+                type: string
+              from:
+                type: object
+                properties:
+                  name:
+                    type: string
+                    nullable: true
+                  email:
+                    type: string
+        pagy:
+          "$ref": "#/components/schemas/pagination"
