@@ -101,7 +101,7 @@ jobs:
         env:
           RAILS_ENV: test
           DB_HOST: localhost
-          DB_USERNAME: myapp
+          DB_USERNAME: roasted_mail
         run: |
           bin/rails db:setup
 
