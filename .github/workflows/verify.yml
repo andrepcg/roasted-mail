@@ -43,11 +43,11 @@ jobs:
 
       - name: Run linters
         run: |
-          bin/rubocop --parallel
+          bundle exec rubocop --parallel
       - name: Run security checks
         run: |
-          bin/bundler-audit --update
-          bin/brakeman -q -w2
+          bundle exec bundler-audit --update
+          bundle exec brakeman -q -w2
 
   tests:
     name: Tests
