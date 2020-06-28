@@ -56,8 +56,8 @@ jobs:
       postgres:
         image: postgres:11
         env:
-          POSTGRES_USER: myapp
-          POSTGRES_DB: myapp_test
+          POSTGRES_USER: roasted_mail
+          POSTGRES_DB: roasted_mail_test
           POSTGRES_PASSWORD: ""
         ports: ["5432:5432"]
 
@@ -100,8 +100,8 @@ jobs:
       - name: Setup test database
         env:
           RAILS_ENV: test
-          PGHOST: localhost
-          PGUSER: myapp
+          DB_HOST: localhost
+          DB_USERNAME: myapp
         run: |
           bin/rails db:setup
 
