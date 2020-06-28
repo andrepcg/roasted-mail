@@ -2,6 +2,7 @@
 
 # rubocop:disable Style/ClassAndModuleChildren
 class Mailbox::EmailsController < ApplicationController
+  include ActionView::Helpers::TextHelper
   before_action :validate_mailbox
   before_action :set_email, only: %i[show destroy render_email_html]
 
@@ -21,7 +22,7 @@ class Mailbox::EmailsController < ApplicationController
   end
 
   def render_email_html
-    render html: @email.html.html_safe
+    render html: simple_format(@email.html)
   end
 
   def destroy
