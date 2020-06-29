@@ -45,7 +45,10 @@
         <div class="row mb-2">
           <div class="col-12">
             <p class="clearfix mb-0">
-              <span class="float-left d-inline-block"><%= t('app_name') %> - <%= link_to 'API', rswag_ui_path %></span>
+              <div class="float-left">
+                <h6 class="mb-0"><%= t('app_name') %></h6>
+                <span><%= link_to 'API', rswag_ui_path, class: 'ml-0' %> | <%= link_to 'Changelog', changelog_index_path, class: 'ml-0' %></span>
+              </div>
               <span class="float-right d-sm-inline-block d-none">Developed by<a class="text-uppercase" href="https://github.com/andrepcg" target="_blank">andré perdigão</a></span>
             </p>
           </div>
