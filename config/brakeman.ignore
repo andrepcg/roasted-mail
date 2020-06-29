@@ -1,0 +1,47 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Cross-Site Scripting",
+      "warning_code": 2,
+      "fingerprint": "64d4c752c97423df8d10bf37803037ded89cd3fb3a3797549fd105d1c4895545",
+      "check_name": "CrossSiteScripting",
+      "message": "Unescaped model attribute",
+      "file": "app/views/changelog/_changelog.html.erb",
+      "line": 4,
+      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
+      "code": "Changelog.new.text",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "ChangelogController",
+          "method": "index",
+          "line": 7,
+          "file": "app/controllers/changelog_controller.rb",
+          "rendered": {
+            "name": "changelog/index",
+            "file": "app/views/changelog/index.html.erb"
+          }
+        },
+        {
+          "type": "template",
+          "name": "changelog/index",
+          "line": 1,
+          "file": "app/views/changelog/index.html.erb",
+          "rendered": {
+            "name": "changelog/_changelog",
+            "file": "app/views/changelog/_changelog.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "changelog/_changelog"
+      },
+      "user_input": null,
+      "confidence": "High",
+      "note": ""
+    }
+  ],
+  "updated": "2020-06-29 21:40:03 +0100",
+  "brakeman_version": "4.8.2"
+}
