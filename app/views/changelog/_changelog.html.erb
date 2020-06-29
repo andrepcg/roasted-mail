@@ -1,0 +1,7 @@
+<div class="mb-4 ">
+  <h3 class="text-bold-600"><%= changelog.title %></h3>
+  <small class="text-muted"><%= changelog.created_at.to_formatted_s(:long) %></small>
+  <div class="mt-2"><%= changelog.text.html_safe %></div>
+
+  <hr class="mt-4">
+</div>

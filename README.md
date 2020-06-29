@@ -24,6 +24,8 @@ API defined using Swagger. [swagger/v1/swagger.yaml](swagger.yaml)
 
 Read the docs live in https://roasted.email/api-docs
 
+Mailbox generation capped at 15 requests every 24 seconds, around 1 request each 1.6 seconds.
+
 ## TODO
 
 - [ ] Write better readme

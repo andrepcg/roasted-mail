@@ -34,4 +34,3 @@ $(document).on('turbolinks:load', function() {
     window.fathom('trackPageview');
   }
 });
-

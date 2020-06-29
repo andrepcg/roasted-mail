@@ -32,5 +32,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
     get '/:email/:token', action: :login, constraints: { email: %r{[^/]+} }, as: :login
   end
 
+  resources :changelog, only: %i[index]
+
   root to: 'mailbox#index'
 end

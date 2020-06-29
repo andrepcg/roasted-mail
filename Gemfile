@@ -31,6 +31,7 @@ gem 'turbolinks', '~> 5'
 gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'activeadmin'
+gem 'activeadmin_quill_editor'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
