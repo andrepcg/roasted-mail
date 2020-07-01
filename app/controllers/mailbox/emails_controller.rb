@@ -3,6 +3,13 @@
 # rubocop:disable Style/ClassAndModuleChildren
 class Mailbox::EmailsController < ApplicationController
   include ActionView::Helpers::TextHelper
+  include ActionView::Helpers::JavaScriptHelper
+
+  ALLOWED_TAGS =  %w(html style strong em b i p code pre tt samp kbd var sub
+    sup dfn cite big small address hr br div span h1 h2 h3 h4 h5 h6 ul ol li dl dt dd abbr
+    acronym a img blockquote del ins).freeze
+  ALLOWED_ATTRIBUTES = %w(href src width id class style height alt cite datetime title class name xml:lang abbr).freeze
+
   before_action :validate_mailbox
   before_action :set_email, only: %i[show destroy render_email_html]
 
@@ -22,7 +29,7 @@ class Mailbox::EmailsController < ApplicationController
   end
 
   def render_email_html
-    render html: simple_format(@email.html)
+    render html: sanitize(@email.html.html_safe, tags: ALLOWED_TAGS, attributes: ALLOWED_ATTRIBUTES)
   end
 
   def destroy
