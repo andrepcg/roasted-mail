@@ -1,0 +1,21 @@
+<h1><%= t '.title' %></h1>
+<p class="mb-4"><%= t '.description' %></p>
+
+<div class="container mb-4">
+  <div class="row">
+    <div class="offset-lg-3 col-lg-6 col-xs-12">
+      <% @phones.to_a.each_slice(2) do |pair| %>
+        <div class="row">
+          <div class="col">
+            <%= render partial: 'phone_card', locals: { phone: pair.first } %>
+          </div>
+          <% if pair.second %>
+            <div class="col">
+              <%= render partial: 'phone_card', locals: { phone: pair.second } %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

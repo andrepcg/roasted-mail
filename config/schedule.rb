@@ -21,6 +21,7 @@
 
 every 1.hour do
   rake 'mailbox:remove_expired'
+  rake 'sms:remove_expired'
 end
 
 # Learn more: http://github.com/javan/whenever

@@ -2,22 +2,13 @@
 
 module Webhooks
   class SendgridController < WebhooksController
-    before_action :validate_sendgrid_request
+    include SendgridRequestValidator
 
     def inbound
-      EmailReceiver.new(params).call
+      Email::Receive.new(params).call
+      head :ok
     rescue StandardError
       head :ok
-    ensure
-      head :ok
-    end
-
-    private
-
-    def validate_sendgrid_request
-      valid_ip = SendgridRequestValidator.call request.remote_ip
-
-      head :unauthorized unless valid_ip
     end
   end
 end

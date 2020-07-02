@@ -11,7 +11,7 @@ module Api
       end
 
       def create
-        @mailbox = MailboxGenerator.call
+        @mailbox = MailboxService::Generator.call
         render :show, status: :created
       end
 
@@ -24,7 +24,7 @@ module Api
       def set_mailbox
         @mailbox = Mailbox.find_by!(id: params[:id])
 
-        head 401 unless MailboxTokenValidator.call(@mailbox, params[:token])
+        head 401 unless MailboxService::TokenValidator.call(@mailbox, params[:token])
       end
     end
   end

@@ -1,0 +1,15 @@
+<tr class="sms_entry" data-sms-id="<%= sms_entry.id %>">
+  <td>
+    <div class="ml-1">
+      <h6 class="text-bold-500 mb-0"><%= sms_entry.from_name %></h6>
+      <small class="text-muted"><%= sms_entry.from %></small>
+    </div>
+  </td>
+  <td>
+    <p class="mb-0"><%= sms_entry.body %></p>
+  </td>
+  <td>
+    <small class="text-muted"><%= distance_of_time_in_words_to_now sms_entry.received_at %> ago</span>
+  </td>
+</tr>
+

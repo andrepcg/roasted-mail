@@ -8,6 +8,10 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
 
   namespace :webhooks do
     post '/email_inbound', to: 'sendgrid#inbound'
+    namespace 'sms' do
+      post '/twilio', to: 'twilio#inbound_sms'
+      post '/generic', to: 'generic#inbound_sms'
+    end
   end
 
   namespace :api do
@@ -17,6 +21,8 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
       end
     end
   end
+
+  resources :phone_numbers, path: :phones, only: %i[index show], param: :number
 
   namespace :mailbox do
     resources :emails, only: %i[index destroy show], param: :email_id do

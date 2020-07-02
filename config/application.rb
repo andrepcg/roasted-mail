@@ -14,7 +14,6 @@ require 'rails'
   action_mailer/railtie
   active_job/railtie
   action_cable/engine
-  rails/test_unit/railtie
   sprockets/railtie
 ].each do |railtie|
   require railtie

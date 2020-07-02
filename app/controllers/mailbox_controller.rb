@@ -11,7 +11,7 @@ class MailboxController < ApplicationController
   def inbox; end
 
   def create
-    mailbox = MailboxGenerator.call
+    mailbox = MailboxService::Generator.call
     create_session mailbox
     redirect_to mailbox_path
   end

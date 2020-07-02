@@ -1,0 +1,59 @@
+<div class="content-header row">
+  <div class="content-header-left col-12 mb-2 mt-1">
+    <div class="row breadcrumbs-top">
+      <div class="col-12">
+        <%= link_to "Back", phone_numbers_path %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-3">
+    <%= render partial: 'phone_card', locals: { phone: @phone, no_link: true } %>
+  </div>
+  <div class="col-9">
+    <ul>
+      <li>Page does not automatically refresh.</li>
+      <li>Messages are removed after <%= distance_of_time_in_words(InboundSms::EXPIRES_AFTER) %></li>
+      <li>Be aware that anyone can see your messages for this number</li>
+      <li>Please do not verify important information</li>
+    </ul>
+  </div>
+</div>
+
+<div class="row mb-1">
+  <div class="col-12 d-flex align-items-center justify-content-between">
+    <button onclick="reloadWithTurbolinks()" class="btn btn-primary">Refresh</button>
+    <small class="text-muted"><%= t('mailbox.inbox.last_refresh') %>: <span><%= Time.now %></span></small>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-content">
+        <div class="table-responsive">
+          <table class="table table-striped mb-0">
+            <colgroup>
+              <col span="1">
+              <col span="2">
+              <col span="1">
+            </colgroup>
+            <thead>
+              <tr>
+                <th><%= t('.from') %></th>
+                <th><%= t('.message') %></th>
+                <th><%= t('.time') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= render partial: 'sms_entry', collection: @sms, cached: true %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <%== pagy_bootstrap_nav(@pagy) %>
+  </div>
+</div>
