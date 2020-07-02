@@ -10,7 +10,7 @@ module TaskerRequestValidator
   def validate_request
     return head :bad_request if missing_token?
 
-    valid = ActiveSupport::SecurityUtils.secure_compare(token, ENV['TASKER_TOKEN'])
+    valid = ActiveSupport::SecurityUtils.secure_compare(token, ENV['SMS_POST_TOKEN'])
 
     head :bad_request unless valid
   end

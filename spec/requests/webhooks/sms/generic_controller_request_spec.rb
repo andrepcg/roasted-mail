@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Webhooks::Sms::GenericController, type: :request do
   describe 'POST /inbound_sms' do
     before do
-      ENV['TASKER_TOKEN'] = 'valid'
+      ENV['SMS_POST_TOKEN'] = 'valid'
     end
 
     let(:phone) { Fabricate :phone_number }
