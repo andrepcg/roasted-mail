@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Fabricator(:inbound_sms) do
   from            { Faker::PhoneNumber.phone_number_with_country_code }
   from_name       { Faker::Name.first_name }
