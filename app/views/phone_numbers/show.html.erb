@@ -15,7 +15,7 @@
   <div class="col-9">
     <ul>
       <li>Page does not automatically refresh.</li>
-      <li>New messages will arrive every couple of seconds.</li>
+      <li>Messages are removed after <%= distance_of_time_in_words(InboundSms::EXPIRES_AFTER) %></li>
       <li>Be aware that anyone can see your messages for this number</li>
       <li>Please do not verify important information</li>
     </ul>
