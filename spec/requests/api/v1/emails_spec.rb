@@ -29,7 +29,7 @@ RSpec.describe 'api/v1/emails', type: :request do
       end
 
       response 401, 'authentication failed' do
-        let(:mailbox) { MailboxGenerator.call }
+        let(:mailbox) { MailboxService::Generator.call }
         let(:mailbox_id) { mailbox.id }
         let('X-TOKEN') { 'tokenXYZ' }
         run_test!

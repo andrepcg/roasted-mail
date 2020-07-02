@@ -5,6 +5,6 @@ class Changelog < ApplicationRecord
 
   def title=(value)
     super(value)
-    self.slug = value.parameterize
+    self.slug = value&.parameterize
   end
 end

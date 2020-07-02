@@ -15,7 +15,31 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+require 'simplecov'
+
+SimpleCov.start
+
 RSpec.configure do |config|
+  config.before(:all) do
+    domains = %w[roasted.email ihave.buzz needemail.top iamno.monster].map do |n|
+      { domain: n }
+    end
+
+    Domain.create(domains)
+  end
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation, except: %w[domains])
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

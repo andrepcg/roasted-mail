@@ -26,7 +26,7 @@ module Api
 
       def set_mailbox
         @mailbox = Mailbox.find_by!(id: params[:mailbox_id])
-        head 401 unless MailboxTokenValidator.call(@mailbox, params[:token])
+        head 401 unless MailboxService::TokenValidator.call(@mailbox, params[:token])
       end
     end
   end

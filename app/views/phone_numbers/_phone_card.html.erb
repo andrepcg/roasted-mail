@@ -1,0 +1,12 @@
+<div class="card text-white bg-danger bg-lighten-1 text-center">
+  <div class="card-content">
+    <div class="card-body">
+      <%= image_tag flag_url(phone), class: 'phone-flag mb-1 img-fluid', alt: phone.country_name %>
+      <h3 class="card-title text-white"><%= phone.country_name %></h3>
+      <p class="card-text"><%= phone.number %></p>
+      <% unless defined?(no_link) %>
+        <%= link_to "Use", phone_number_path(phone), class: 'btn btn-sm btn-outline-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>

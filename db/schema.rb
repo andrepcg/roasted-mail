@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_29_124444) do
+ActiveRecord::Schema.define(version: 2020_06_30_164351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,17 @@ ActiveRecord::Schema.define(version: 2020_06_29_124444) do
     t.index ["mailbox_id"], name: "index_inbound_emails_on_mailbox_id"
   end
 
+  create_table "inbound_sms", force: :cascade do |t|
+    t.string "from"
+    t.string "from_name"
+    t.datetime "received_at"
+    t.text "body"
+    t.bigint "phone_number_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["phone_number_id"], name: "index_inbound_sms_on_phone_number_id"
+  end
+
   create_table "logs", force: :cascade do |t|
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }
     t.integer "action"
@@ -108,6 +119,16 @@ ActiveRecord::Schema.define(version: 2020_06_29_124444) do
     t.index ["email"], name: "index_mailboxes_on_email", unique: true
   end
 
+  create_table "phone_numbers", force: :cascade do |t|
+    t.string "number"
+    t.string "country_iso3166"
+    t.boolean "available"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["country_iso3166"], name: "index_phone_numbers_on_country_iso3166"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "inbound_emails", "mailboxes"
+  add_foreign_key "inbound_sms", "phone_numbers"
 end

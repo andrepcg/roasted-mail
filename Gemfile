@@ -32,6 +32,7 @@ gem 'bootsnap', '>= 1.4.2', require: false
 
 gem 'activeadmin'
 gem 'activeadmin_quill_editor'
+gem 'countries'
 gem 'devise'
 gem 'dotenv-rails'
 gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
@@ -46,6 +47,7 @@ gem 'rack-attack'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'sentry-raven'
+gem 'twilio-ruby'
 gem 'whenever', require: false
 
 group :development, :test do
@@ -68,6 +70,8 @@ group :development do
 end
 
 group :test do
+  gem 'database_cleaner-active_record'
+  gem 'simplecov', require: false
   # Adds support for Capybara system testing and selenium driver
   # gem 'capybara', '>= 2.15'
   # gem 'selenium-webdriver'

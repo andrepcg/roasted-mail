@@ -1,35 +1,45 @@
-const EMAIL_REFRESH_TIMER = 5000;
+const EMAIL_REFRESH_TIMER = 10000;
+
 
 $(document).on('turbolinks:load', function() {
+  if (getControllerName() === 'mailbox' && getActionName() === 'inbox') {
+    function loadEmails() {
+      const currentPage = $('#emails_list').data('page');
+      $.ajax({
+        "type": "GET",
+        "url": "/mailbox/emails",
+        "dataType": "script",
+        "data": {
+          "page": currentPage
+        }
+      }).done(() => {
+        $('#last_refresh').text(new Date().toLocaleString())
+      });
+    }
 
-  const lastRefresh = $('#last_refresh');
+    loadEmails();
+    addTimer();
 
-  function loadEmails() {
-    // $('.tooltip').tooltip('dispose');
-    const currentPage = $('#emails_list').data('page');
-    $.ajax({
-      "type": "GET",
-      "url": "/mailbox/emails",
-      "dataType": "script",
-      "data": {
-        "page": currentPage
+    $("#autoRefresh").prop('checked', true);
+
+    $("#autoRefresh").change(function() {
+      const isChecked = this.checked;
+      if (isChecked) {
+        addTimer();
+      } else {
+        clearInterval(refreshInterval);
       }
-    }).done(() => {
-      lastRefresh.text(new Date().toLocaleString())
     });
-  }
 
-  window.addEventListener("turbolinks:load", loadEmails);
-
-  let refreshInterval = setInterval(loadEmails, EMAIL_REFRESH_TIMER);
-  $("#autoRefresh").prop('checked', true);
-
-  $("#autoRefresh").change(function() {
-    const isChecked = this.checked;
-    if (isChecked) {
-      refreshInterval = setInterval(loadEmails, EMAIL_REFRESH_TIMER);
-    } else {
+    function clearTimers() {
       clearInterval(refreshInterval);
     }
-  });
+
+    function addTimer() {
+      refreshInterval = setInterval(loadEmails, EMAIL_REFRESH_TIMER);
+    }
+
+    window.addEventListener("turbolinks:before-cache", clearTimers)
+    window.addEventListener("turbolinks:before-render", clearTimers)
+  }
 });

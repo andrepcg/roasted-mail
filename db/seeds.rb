@@ -7,7 +7,7 @@ end
 Domain.create(domains)
 
 10.times do
-  mailbox = MailboxGenerator.call
+  mailbox = MailboxService::Generator.call
   20.times do
     InboundEmail.create mailbox: mailbox,
                         from: Faker::Internet.email,
