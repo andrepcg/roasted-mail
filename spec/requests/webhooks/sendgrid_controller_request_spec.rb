@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Webhooks::Sms::SendgridController, type: :request do
+RSpec.describe Webhooks::SendgridController, type: :request do
   describe 'POST /email_inbound' do
     let!(:mailbox) { Fabricate :mailbox }
 
