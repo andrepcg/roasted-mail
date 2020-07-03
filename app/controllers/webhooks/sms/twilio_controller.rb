@@ -7,7 +7,7 @@ module Webhooks
 
       def inbound_sms
         adapter = SmsAdapters::TwilioAdapter.new(params)
-        ::Sms::Create.new(adapter).call
+        SmsService::Create.new(adapter).call
         head :ok
       end
     end

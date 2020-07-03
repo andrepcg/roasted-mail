@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Sms
+module SmsService
   class Create
     def initialize(sms_adapter)
       @adapter = sms_adapter
@@ -10,6 +10,7 @@ module Sms
       validate_destinatary
       create_sms
       attach_files
+      create_log
     end
 
     private
@@ -28,6 +29,10 @@ module Sms
       @adapter.parse_files.each do |f|
         @sms.files.attach(io: f[:io], content_type: f[:content_type], filename: f[:filename])
       end
+    end
+
+    def create_log
+      Log.create(action: :receive_sms)
     end
   end
 end

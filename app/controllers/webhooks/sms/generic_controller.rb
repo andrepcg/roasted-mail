@@ -7,7 +7,7 @@ module Webhooks
 
       def inbound_sms
         adapter = ::SmsAdapters::GenericAdapter.new(params)
-        ::Sms::Create.new(adapter).call
+        SmsService::Create.new(adapter).call
         head :ok
       rescue ActiveRecord::RecordNotFound
         head :bad_request
