@@ -9,7 +9,7 @@
     <p class="mb-0"><%= sms_entry.body %></p>
   </td>
   <td>
-    <small class="text-muted"><%= distance_of_time_in_words_to_now sms_entry.received_at %> ago</span>
+    <small class="text-muted" title="<%= sms_entry.received_at %>"><%= distance_of_time_in_words_to_now sms_entry.received_at %> ago</span>
   </td>
 </tr>
 
