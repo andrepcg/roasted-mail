@@ -37,8 +37,8 @@ en:
       message: Message
       time: Time
     index:
-      title: Disposable phone numbers
-      description: Free service to receive sms messages. Use a phone number form the list below to receive messages from multiple services without revealing your personal phone number.
+      title: Temporary phone numbers
+      description: Free service to receive sms messages. Use a phone number from the list below to receive messages from multiple services without revealing your personal phone number.
   mailbox:
     index:
       generate: 🔥 Generate Mailbox 🔥
