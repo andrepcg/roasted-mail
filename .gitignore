@@ -38,3 +38,4 @@ gcs.json
 .env*
 !.env-example
 coverage
+VERSION
