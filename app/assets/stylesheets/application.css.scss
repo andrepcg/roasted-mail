@@ -25,3 +25,17 @@
 .pagination {
   justify-content: center;
 }
+
+.footer {
+  ul.links {
+    margin: 0;
+    padding: 0;
+    li {
+      display: inline;
+      a {
+        margin-left: 0;
+        margin-right: 10px;
+      }
+    }
+  }
+}

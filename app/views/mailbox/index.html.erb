@@ -22,7 +22,21 @@
 <%= render partial: 'stats', locals: { email_stats: @stats[:emails_count], mailbox_stats: @stats[:mailboxes_count], sms_stats: @stats[:sms_count] } %>
 
 <div class="row">
-  <div class="offset-md-3 col-md-6 mt-4">
+  <div class="offset-lg-3 col-lg-6 col-xs-12">
+    <div class="card">
+      <div class="card-content">
+        <div class="card-body">
+          <p class="card-text">
+            Interested in temporary 📱 phone numbers? We offer that as well! Check them <%= link_to "here.", phone_numbers_path %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="offset-md-3 col-md-6 mt-2">
     <h4 class="card-title">Our domains</h4>
     <% Domain.all.order('RANDOM()').each do |domain| %>
       <a href="<%= domain.url %>" class="badge badge-<%= random_color %> mr-1 mb-1">@<%= domain.domain %></a>
