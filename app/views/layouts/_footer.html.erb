@@ -4,7 +4,7 @@
       <div class="col-12">
         <p class="clearfix mb-0">
           <div class="float-left">
-            <h6 class="mb-0"><%= t('app_name') %></h6>
+            <h6 class="mb-0"><%= t('app_name') %> <%= link_to "(#{::VERSION})", github_commit_url(::COMMIT) %></h6>
             <ul class="links">
               <li><%= link_to 'Phone Numbers', phone_numbers_path %></li>
               <li><%= link_to 'API', rswag_ui_path %></li>

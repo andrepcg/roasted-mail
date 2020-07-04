@@ -38,4 +38,6 @@ gcs.json
 .env*
 !.env-example
 coverage
-VERSION
+BRANCH
+COMMIT
+TIMESTAMP

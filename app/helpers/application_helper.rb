@@ -23,4 +23,8 @@ module ApplicationHelper
     end
     html
   end
+
+  def github_commit_url(commit_sha)
+    "https://github.com/andrepcg/roasted-mail/commit/#{commit_sha}"
+  end
 end
