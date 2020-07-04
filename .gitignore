@@ -35,5 +35,6 @@
 yarn-debug.log*
 .yarn-integrity
 gcs.json
-.env
+.env*
+!.env-example
 coverage
