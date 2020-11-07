@@ -10,8 +10,6 @@ module Email
     def call
       raise ArgumentError unless valid_params?
 
-      @to = @params[:to].split(', ').first
-
       @mailbox = check_mailbox_exists
       create_inbound_email
       parse_attachments
@@ -29,6 +27,7 @@ module Email
     end
 
     def check_mailbox_exists
+      @to = Mail::Address.new(@params[:to].split(', ').first).address
       Mailbox.find_by!(email: @to.downcase)
     end
 
